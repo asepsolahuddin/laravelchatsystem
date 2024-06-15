@@ -31,7 +31,8 @@ Route::get('/welcome/{id}', [ArtikelController::class, 'deskripsi'])->name('welc
 // Route::get('/halaman-artikel', [ArtikelController::class,'recent_artikel']);
 // Route::get('/search', [ArtikelController::class, 'search'])->name('search');
 Route::get('/halaman-artikel',[NewsController::class, 'index'])->name('post.index');
-Route::get('/halaman-video',[FilmController::class, 'index'])->name('film.index');;
+Route::get('/halaman-video',[FilmController::class, 'index'])->name('film.index');
+Route::get('/view_video/{id}',[FilmController::class, 'detail_vid'])->name('video.detail');
 
 Route::middleware([
     'auth:sanctum',
@@ -42,3 +43,5 @@ Route::middleware([
         return view('dashboard');
     })->name('dashboard');
 });
+
+

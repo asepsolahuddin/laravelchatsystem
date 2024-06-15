@@ -28,13 +28,24 @@
     />
     <link
       href="{{ asset('assets/vendor/glightbox/css/glightbox.min.css') }}"
-      rel="stylesheet"
+      rel="stylesheet"s
     />
     <link href="{{ asset('vendor/remixicon/remixicon.css') }}" rel="stylesheet" />
     <link href="{{ asset('vendor/swiper/swiper-bundle.min.css') }}" rel="stylesheet" />
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('css/content/style.css') }}" rel="stylesheet" />
+    <style>
+      .iframe-container {
+          width: 100%;
+          height: 60%;
+      }
+      .iframe-container iframe {
+          width: 100%;
+          height: 100%;
+          border: 2px solid #090909;
+      }
+      </style>
 
     <!-- =======================================================
   * Template Name: FlexStart
@@ -58,20 +69,13 @@
 
         <nav id="navbar" class="navbar">
           <ul>
-            <li><a class="nav-link scrollto active" href="{{ url('/') }}">Home</a></li>
-            <li><a class="nav-link scrollto" href="{{ url('/halaman-video') }}">Video</a></li>
-            <li><a class="nav-link scrollto" href="{{ url('/halaman-artikel') }}">Article</a></li>
-              @if (Route::has('login'))
-              @auth
-                  <a href="{{ url('/login') }}" class="getstarted scrollto">chat</a>
-              @else
-                  <a href="{{ route('login') }}" class="getstarted scrollto">Log in</a>
-  
-                  @if (Route::has('register'))
-                      <a href="{{ route('register') }}" class="getstarted scrollto">Register</a>
-                  @endif
-              @endauth
-              @endif
+            <li><a class="nav-link scrollto" href="#hero">Home</a></li>
+            <li><a class="nav-link scrollto" href="#about">Video</a></li>
+            <li><a class="nav-link scrollto" href="#services">Artikel</a></li>
+            <li><a class="nav-link scrollto" href="#services">About</a></li>
+            <li>
+              <a class="getstarted scrollto" href="#about">Get Started</a>
+            </li>
           </ul>
           <i class="bi bi-list mobile-nav-toggle"></i>
         </nav>
@@ -84,82 +88,85 @@
       <!-- ======= Breadcrumbs ======= -->
       <section class="breadcrumbs">
         <div class="container">
-          <h2>VIdeo</h2>
+          <h2>Artikel</h2>
         </div>
       </section>
       <!-- End Breadcrumbs -->
 
-      <!-- ======= Blog Section ======= -->
+      <!-- ======= Blog Single Section ======= -->
       <section id="blog" class="blog">
         <div class="container" data-aos="fade-up">
           <div class="row">
             <div class="col-lg-8 entries">
-              <!-- batas awal artikel-->
-              <div class="row mb-4">
-                <div class="col-md-8">
-                    <form action="{{ route('film.index') }}" method="GET" class="mt-3">
-                        <div class="input-group">
-                            <input type="text" name="query" class="form-control" placeholder="Search for articles" required>
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="submit">Search</button>
-                            </div>
-                        </div>
-                    </form>
+              <article class="entry entry-single">
+                    <iframe width="670" height="330" src="{{ $videos->video_url }}" 
+                      title="YouTube video player" frameborder="0" 
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                      referrerpolicy="strict-origin-when-cross-origin" allowfullscreen>
+                     </iframe>
+                <h2 class="entry-title">
+                  <a href="blog-single.html"
+                    >{{ $videos->judul }}</a
+                  >
+                </h2>
+
+                <div class="entry-meta">
+                  <ul>
+                    <li class="d-flex align-items-center">
+                      <i>Kategori :</i>
+                      <a href="blog-single.html">{{ $videos->kategori }}</a>
+                    </li>
+                  </ul>
                 </div>
-            </div>
-            <div class="container" data-aos="fade-up">
-               <div class="row">
-            @if($films->isEmpty())
-              <h1">No articles found.</h1>
-            @else
-                @foreach($films as $film)
 
-                      {{-- <div class="col-md-4 mt-3" >
-                        <div class="card">
-                            <img src="{{ asset('/storage/products/' . $film->cover_path) }}" class="card-img-top" style="height: 200px;" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ $film->judul }}</h5>
-                            </div>
-                            <a href="{{ route('video.detail', $film->id) }}" class="readmore stretched-link mt-auto">
-                              <span>Read More</span><i class="bi bi-arrow-right"></i>
-                            </a>
-                          </div>
-                        </div> --}}
-
-                        <div class="col-lg-4">
-                        <div class="post-box" style="border:2px solid black; padding:10px; height:350px">
-                            <div class="post-img">
-                                <img src="{{ asset('/storage/products/' . $film->cover_path) }}" class="card-img-top " style="height: 200px;" alt="">
-                            </div>
-                            <span class="post-date">Recent</span>
-                            <h5 class="post-title">{{ $film->judul }}</h5>
-                            <a href="{{ route('video.detail', $film->id) }}" class="readmore stretched-link mt-auto">
-                                <span>Read More</span><i class="bi bi-arrow-right"></i>
-                            </a>
-                          </div>
-                      </div>
-
-
-                      @endforeach
-
-                      @endif
-                    </div>
-                  </div>
-                  <div class="blog-pagination mt-5">
-                    <nav aria-label="Page navigation example">
-                        <ul class="pagination justify-content-center">
-                            {{ $films->links('pagination::bootstrap-5') }}
-                        </ul>
-                    </nav>
+                <div class="entry-content">
+                  <p>{!! $videos->deskripsi !!}</p>
                 </div>
+              </article>
               <!-- End blog entry -->
 
+              <!-- <div class="blog-author d-flex align-items-center">
+                <img
+                  src="assets/img/blog/blog-author.jpg"
+                  class="rounded-circle float-left"
+                  alt=""
+                />
+                <div>
+                  <h4>Jane Smith</h4>
+                  <div class="social-links">
+                    <a href="https://twitters.com/#"
+                      ><i class="bi bi-twitter"></i
+                    ></a>
+                    <a href="https://facebook.com/#"
+                      ><i class="bi bi-facebook"></i
+                    ></a>
+                    <a href="https://instagram.com/#"
+                      ><i class="biu bi-instagram"></i
+                    ></a>
+                  </div>
+                  <p>
+                    Itaque quidem optio quia voluptatibus dolorem dolor. Modi
+                    eum sed possimus accusantium. Quas repellat voluptatem
+                    officia numquam sint aspernatur voluptas. Esse et
+                    accusantium ut unde voluptas.
+                  </p>
+                </div>
+              </div> -->
+              <!-- End blog author bio -->
 
+              <!-- End blog comments -->
             </div>
             <!-- End blog entries list -->
 
             <div class="col-lg-4">
               <div class="sidebar">
+                {{-- <h3 class="sidebar-title">Search</h3>
+                <div class="sidebar-item search-form">
+                  <form action="">
+                    <input type="text" />
+                    <button type="submit"><i class="bi bi-search"></i></button>
+                  </form>
+                </div> --}}
                 <!-- End sidebar search formn-->
                 <!-- End sidebar categories-->
 
@@ -178,8 +185,6 @@
                   @endforeach
                 </div>
                 <!-- End sidebar recent posts-->
-
-                <!-- End sidebar tags-->
               </div>
               <!-- End sidebar -->
             </div>
@@ -187,9 +192,19 @@
           </div>
         </div>
       </section>
-      <!-- End Blog Section -->
+      <!-- End Blog Single Section -->
     </main>
     <!-- End #main -->
+
+    <!-- ======= Footer ======= -->
+
+    <!-- End Footer -->
+
+    <a
+      href="#"
+      class="back-to-top d-flex align-items-center justify-content-center"
+      ><i class="bi bi-arrow-up-short"></i
+    ></a>
 
     <!-- Vendor JS Files -->
     <script src="{{ asset('vendor/purecounter/purecounter_vanilla.js') }}"></script>

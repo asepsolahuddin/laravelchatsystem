@@ -35,4 +35,12 @@ class FilmController extends Controller
             return $posts->paginate(6);
     
         }
+
+        public function detail_vid(string $id) : View {
+
+            $videos = Videos::FindOrFail($id);
+            $recents = $this->recent_artikel();
+
+            return view('pages.dashboard.view_video', compact('videos','recents'));
+        }
 }
